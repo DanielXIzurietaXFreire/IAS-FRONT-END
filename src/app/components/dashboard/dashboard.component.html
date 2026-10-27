@@ -1,0 +1,21 @@
+<app-sidebar></app-sidebar>
+<main class="main-content dashboard-page">
+  <section class="section active">
+    <header class="main-header">
+      <div><p class="eyebrow">Panel de control</p><h1>Bienvenido, {{ userName }}</h1><p>Estado actualizado de las alertas de seguridad.</p></div>
+    </header>
+    <div class="summary-cards">
+      <a class="summary-card pending" routerLink="/notificaciones" [queryParams]="{ filtro: 'pendiente' }"><i class="fas fa-exclamation-triangle"></i><span>Amenazas pendientes</span><strong>{{ pending }}</strong></a>
+      <a class="summary-card reviewed" routerLink="/notificaciones" [queryParams]="{ filtro: 'revisado' }"><i class="fas fa-check-circle"></i><span>Revisadas</span><strong>{{ reviewed }}</strong></a>
+      <a class="summary-card dismissed" routerLink="/notificaciones" [queryParams]="{ filtro: 'descartado' }"><i class="fas fa-times-circle"></i><span>Descartadas</span><strong>{{ dismissed }}</strong></a>
+      <a class="summary-card total" routerLink="/notificaciones" [queryParams]="{ filtro: 'todas' }"><i class="fas fa-shield-alt"></i><span>Total alertas</span><strong>{{ counts.todas }}</strong></a>
+    </div>
+    <section class="activity-panel"><div class="panel-heading"><div><h2>Últimas alertas activas</h2><p>Las notificaciones más recientes que requieren seguimiento.</p></div><i class="fas fa-radar"></i></div>
+      <div class="alert-table"><div class="alert-row header"><span></span><span>Descripción</span><span>Hora</span><span>Estado</span></div>
+        <button class="alert-row alert-row-clickable" *ngFor="let item of activeNotifications" type="button" (click)="openDetails(item)"><img class="alert-thumbnail" [src]="item.imagenUrl" alt="" /><span class="description">{{ item.mensaje }}</span><time>{{ item.timestamp | date:'short' }}</time><span class="status" [class]="item.estado"><i class="fas" [class.fa-exclamation-triangle]="item.estado === 'pendiente'" [class.fa-check]="item.estado === 'revisado'"></i> {{ statusLabel(item.estado) }}</span></button>
+        <p class="empty" *ngIf="activeNotifications.length === 0">No hay alertas activas.</p>
+      </div>
+    </section>
+  </section>
+</main>
+<div class="modal-backdrop" *ngIf="selectedNotification" (click)="closeDetails()"><section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title" (click)="$event.stopPropagation()"><button class="modal-close" type="button" (click)="closeDetails()" aria-label="Cerrar"><i class="fas fa-times"></i></button><img [src]="selectedNotification!.imagenUrl" alt="Alerta" /><div class="modal-info"><span class="eyebrow">Detalle de alerta</span><h2 id="detail-title">{{ selectedNotification!.mensaje }}</h2><p>{{ selectedNotification!.timestamp | date:'full' }}</p><div class="modal-actions"><button class="review" type="button" (click)="updateStatus('revisado')"><i class="fas fa-check"></i> Revisado</button><button class="dismiss" type="button" (click)="updateStatus('descartado')"><i class="fas fa-times"></i> Descartar</button></div></div></section></div>

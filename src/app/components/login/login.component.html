@@ -1,0 +1,119 @@
+<main class="login-page">
+  <section class="brand-panel" aria-label="IA Security">
+    <div class="brand-pattern brand-pattern-top" aria-hidden="true"></div>
+    <div class="brand-pattern brand-pattern-bottom" aria-hidden="true"></div>
+
+    <div class="brand-content">
+      <div class="brand-wordmark">
+        <span class="brand-mark" aria-hidden="true">
+          <i class="fas fa-shield-alt"></i>
+        </span>
+        <span>IA <strong>Security</strong></span>
+      </div>
+
+      <div class="brand-illustration" aria-hidden="true">
+        <span class="illustration-orbit illustration-orbit-outer"></span>
+        <span class="illustration-orbit illustration-orbit-inner"></span>
+        <span class="illustration-shield">
+          <i class="fas fa-shield-alt"></i>
+          <i class="fas fa-video illustration-camera"></i>
+        </span>
+        <span class="illustration-dot illustration-dot-one"></span>
+        <span class="illustration-dot illustration-dot-two"></span>
+        <span class="illustration-line illustration-line-one"></span>
+        <span class="illustration-line illustration-line-two"></span>
+      </div>
+
+      <div class="brand-copy">
+        <p class="brand-eyebrow">Protección inteligente</p>
+        <h1>Seguridad que<br /><span>genera confianza.</span></h1>
+        <p class="brand-slogan">Segura, Solvente y Solidaria</p>
+      </div>
+
+      <p class="brand-footer">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        Plataforma de monitoreo seguro
+      </p>
+    </div>
+  </section>
+
+  <section class="form-panel" aria-labelledby="login-title">
+    <div class="login-content" [class.shake]="shake">
+      <div class="mobile-brand" aria-hidden="true">
+        <span class="brand-mark"><i class="fas fa-shield-alt"></i></span>
+        <span>IA <strong>Security</strong></span>
+      </div>
+
+      <header class="form-header">
+        <p class="form-eyebrow">Acceso al sistema</p>
+        <h2 id="login-title">Bienvenido</h2>
+        <p>Ingresa tus credenciales para continuar.</p>
+      </header>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" autocomplete="on" novalidate>
+        <div class="input-group">
+          <label for="email">Correo electrónico</label>
+          <div class="input-wrapper" [class.invalid]="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+            <i class="fas fa-envelope input-icon" aria-hidden="true"></i>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="tu@correo.com"
+              autocomplete="email"
+              aria-required="true"
+              [attr.aria-invalid]="loginForm.controls.email.touched && loginForm.controls.email.invalid"
+            />
+          </div>
+          <span class="field-error" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+            Ingresa tu correo electrónico para continuar.
+          </span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <div class="input-wrapper" [class.invalid]="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+            <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              placeholder="Ingresa tu contraseña"
+              autocomplete="current-password"
+              aria-required="true"
+              [attr.aria-invalid]="loginForm.controls.password.touched && loginForm.controls.password.invalid"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+              [attr.aria-pressed]="showPassword"
+            >
+              <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span class="field-error" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+            Ingresa tu contraseña para continuar.
+          </span>
+        </div>
+
+        <p class="error-message" *ngIf="errorMessage" role="alert">{{ errorMessage }}</p>
+
+        <button type="submit" class="btn-login" [class.loading]="loading" [disabled]="loading">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          <span class="btn-text">{{ loading ? 'Ingresando...' : 'Iniciar Sesión' }}</span>
+        </button>
+
+        <div class="form-divider" aria-hidden="true"><span>o</span></div>
+        <p class="security-note">
+          <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          Acceso protegido para personal autorizado
+        </p>
+      </form>
+
+      <p class="form-footnote">Sistema de Seguridad Inteligente Sisa</p>
+    </div>
+  </section>
+</main>

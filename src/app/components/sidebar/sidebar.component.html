@@ -1,0 +1,9 @@
+<aside class="sidebar">
+  <div class="sidebar-logo"><i class="fas fa-coins"></i><span class="logo-text">sisa</span></div>
+  <nav class="sidebar-nav" aria-label="Navegación principal">
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" title="Inicio"><i class="fas fa-home"></i><span class="nav-text">Inicio</span></a>
+    <a routerLink="/camaras" routerLinkActive="active" title="Cámaras"><i class="fas fa-video"></i><span class="nav-text">Cámaras</span></a>
+    <a routerLink="/notificaciones" routerLinkActive="active" title="Notificaciones"><i class="fas fa-bell"></i><span class="nav-text">Notificaciones</span></a>
+  </nav>
+  <button class="logout-button" type="button" (click)="logout()" title="Cerrar sesión"><i class="fas fa-sign-out-alt"></i><span class="nav-text">Cerrar sesión</span></button>
+</aside>
